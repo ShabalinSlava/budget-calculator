@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function(){
   const operationAmount = document.querySelector('.operation__amount');
 
   let dbOperation = [];
-  
+  if (localStorage.getItem('calculate')) {
+    dbOperation = JSON.parse(localStorage.getItem('calculate'));
+  }
   // Добавление структуры для элемента
   const renderOperation = (operation) => {
     const className = operation.amount < 0 ? 'history__item-minus' : 'history__item-plus';
@@ -74,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function(){
   const init = () => {
     historyList.textContent = '';
     dbOperation.forEach(renderOperation);
-    updateBalance()
+    updateBalance();
+    localStorage.setItem('calculate', JSON.stringify(dbOperation));
   };
   form.addEventListener('submit', addOperation);
   historyList.addEventListener('click', deleteOperation);
