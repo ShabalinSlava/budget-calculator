@@ -8,39 +8,9 @@ document.addEventListener('DOMContentLoaded', function(){
   const operationName = document.querySelector('.operation__name');
   const operationAmount = document.querySelector('.operation__amount');
 
-  let dbOperation = [
-    {
-      id: '1',
-      description: 'Получил зарплату',
-      amount: 30000,
-    },
-    {
-      id: '2',
-      description: 'Продукты купил',
-      amount: -5000,
-    },
-    {
-      id: '3',
-      description: 'Спорт зал',
-      amount: -2000,
-    },
-    {
-      id: '4',
-      description: 'Билет на свободу',
-      amount: -10000,
-    },
-    {
-      id: '5',
-      description: 'На ништяки',
-      amount: -5000,
-    },
-    {
-      id: '6',
-      description: 'Сбор дани',
-      amount: 20000,
-    },
-  ];
-
+  let dbOperation = [];
+  
+  // Добавление структуры для элемента
   const renderOperation = (operation) => {
     const className = operation.amount < 0 ? 'history__item-minus' : 'history__item-plus';
     const listItem = document.createElement('li');
@@ -48,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function(){
     listItem.classList.add(className);
     listItem.innerHTML = `${operation.description}
       <span class="history__money">${operation.amount} ₽</span>
-      <button class="history_delete">x</button>
+      <button class="history_delete" data-id="${operation.id}">x</button>
     `;
     historyList.append(listItem);
   };
-
+  // Сумма расходов и доходов
   const updateBalance = () => {
     const resultIncome = dbOperation
     .filter((el) => el.amount > 0)
@@ -66,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(){
     totalMoneyExpenses.textContent = resultExpenses + ' ₽';
     totalBalance.textContent = (resultIncome + resultExpenses) + ' ₽';
   };
-
+  // Добавление нового поля
   const addOperation = (event) => {
     event.preventDefault();
     const operationNameValue = operationName.value;
@@ -78,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function(){
       const operation = {
         id: generateId(),
         description: operationName.value,
-        amount: operationAmount.value
+        amount: +operationAmount.value
       };
       dbOperation.push(operation);
       init();
@@ -91,14 +61,23 @@ document.addEventListener('DOMContentLoaded', function(){
     operationName.value = '';
     operationAmount.value = '';
   };
+  // Удаление элемента
+  const deleteOperation = (event) => {
+    const target = event.target;
+    if (target.classList.contains('history_delete')) {
+      dbOperation = dbOperation
+      .filter(operation => operation.id !== target.dataset.id);
+      init();
+    }
+  };
 
   const init = () => {
     historyList.textContent = '';
     dbOperation.forEach(renderOperation);
     updateBalance()
   };
-
   form.addEventListener('submit', addOperation);
+  historyList.addEventListener('click', deleteOperation);
 
   init();
 });
