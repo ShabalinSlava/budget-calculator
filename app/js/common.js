@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', function(){
   ];
 
   const renderOperation = (operation) => {
+    const className = operation.amount < 0 ? 'history__item-minus' : 'history__item-plus';
     const listItem = document.createElement('li');
     listItem.classList.add('history__item');
+    listItem.classList.add(className);
     listItem.innerHTML = `${operation.description}
       <span class="history__money">${operation.amount} ₽</span>
       <button class="history_delete">x</button>
@@ -50,9 +52,24 @@ document.addEventListener('DOMContentLoaded', function(){
     historyList.append(listItem);
   };
 
+  const updateBalance = () => {
+    const resultIncome = dbOperation
+    .filter((el) => el.amount > 0)
+    .reduce((result, el) => result + el.amount, 0);
+
+    const resultExpenses = dbOperation
+    .filter((el) => el.amount < 0)
+    .reduce((result, el) => result + el.amount, 0);
+
+    totalMoneyIncome.textContent = resultIncome + ' ₽';
+    totalMoneyExpenses.textContent = resultExpenses + ' ₽';
+    totalBalance.textContent = (resultIncome + resultExpenses) + ' ₽';
+  };
+
   const init = () => {
     historyList.textContent = '';
     dbOperation.forEach(renderOperation);
+    updateBalance()
   };
   init();
 });
