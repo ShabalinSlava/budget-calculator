@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
+  const generateId = () => `id${Math.round(Math.random() * 1e8).toString(16)}`
   const totalBalance = document.querySelector('.total__balance');
   const totalMoneyIncome = document.querySelector('.total__money-income');
   const totalMoneyExpenses = document.querySelector('.total__money-expenses');
@@ -66,10 +67,38 @@ document.addEventListener('DOMContentLoaded', function(){
     totalBalance.textContent = (resultIncome + resultExpenses) + ' ₽';
   };
 
+  const addOperation = (event) => {
+    event.preventDefault();
+    const operationNameValue = operationName.value;
+    const operationAmountValue = operationAmount.value;
+
+    operationName.style.borderColor = '';
+    operationAmount.style.borderColor = '';
+    if (operationNameValue && operationAmountValue) {
+      const operation = {
+        id: generateId(),
+        description: operationName.value,
+        amount: operationAmount.value
+      };
+      dbOperation.push(operation);
+      init();
+      console.log(dbOperation)
+
+    } else {
+      if (!operationNameValue) operationName.style.borderColor = 'red';
+      if (!operationAmountValue) operationAmount.style.borderColor = 'red';
+    }
+    operationName.value = '';
+    operationAmount.value = '';
+  };
+
   const init = () => {
     historyList.textContent = '';
     dbOperation.forEach(renderOperation);
     updateBalance()
   };
+
+  form.addEventListener('submit', addOperation);
+
   init();
 });
