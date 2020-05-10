@@ -1,72 +1,74 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
-
-	<meta charset="utf-8">
-	<!-- <base href="/"> -->
-
-	<title>OptimizedHTML 4</title>
-	<meta name="description" content="">
-
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	
-	<!-- Template Basic Images Start -->
-	<meta property="og:image" content="path/to/image.jpg">
-	<link rel="icon" href="img/favicon/favicon.ico">
-	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
-	<!-- Template Basic Images End -->
-	
-	<!-- Custom Browsers Color Start -->
-	<meta name="theme-color" content="#000">
-	<!-- Custom Browsers Color End -->
-
-	<link rel="stylesheet" href="css/main.min.css">
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Кошелек JS</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-	<!-- Custom HTML -->
+	<head>
+		<h1>Кошелек</h1>
+		<h2>Калькулятор расходов</h2>
+	</head>
 
-	<div class="container">
-
-		<div class="row">
-
-			<div class="col-8 offset-2">
-				
-				<img class="img-responsive"
-					src="img/@1x/preview.jpg"
-					srcset="img/@1x/preview.jpg 1x, img/@2x/preview.jpg 2x"
-					alt="Start HTML5 Template">
-
-				<br>
-
-				<h2>Welcome to startup HTML template OptimizedHTML 4!</h2>
-
-				<p>Lorem ipsum dolor sit amet, <strong>consectetur</strong> adipisicing elit. Ad distinctio animi, dolorum eaque praesentium unde aliquid, mollitia itaque voluptate quos modi et incidunt tempora fugiat voluptatum quia esse dolor repellat.</p>
-				<p>Nemo velit incidunt assumenda, eaque, sequi vitae facilis doloribus qui totam, fuga iure dignissimos ab non praesentium. Vitae similique, corrupti aliquam nam modi explicabo distinctio qui cum officia ullam quam!</p>
-				<p>Aperiam veritatis debitis quibusdam animi totam quos mollitia aspernatur porro consectetur id quod tempore numquam, ullam ex quae quasi voluptatem incidunt placeat asperiores quas autem! Labore modi quae nulla illo!</p>
-
-				<br>
-
-				<div class="row">
-
-					<div class="col-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis quo vero molestias, esse doloribus corrupti, nemo minus ullam tempore tenetur magni aut quos soluta sit adipisci eius expedita amet non.</div>
-					<div class="col-6">Odit enim harum minus nam excepturi quae vitae consectetur repudiandae natus neque ab asperiores repellat quo dicta vel accusamus voluptatum rerum autem eaque rem laudantium, sint veritatis. Minus, unde rem.</div>
-
+	<main>
+		<div class="container">
+			<section class="total">
+				<header class="total__header">
+					<h3>Баланс</h3>
+					<p class="total__balance">0 ₽</p>
+				</header>
+				<div class="total__main">
+					<div class="total__main-item total__income">
+						<h4>Доходы</h4>
+						<p class="total__money total__money-income">
+							+0 ₽
+						</p>
+					</div>
+					<div class="total__main-item total__expenses">
+						<h4>Расходы</h4>
+						<p class="total__money total__money-expenses">
+							-0 ₽
+						</p>
+					</div>
 				</div>
+			</section>
 
-				<br>
+			<section class="history">
+				<h3>История расходов</h3>
+				<ul class="history__list">
+					<li class="history__item history__item-plus">Получил зарплату
+						<span class="history__money">+30000 ₽</span>
+						<button class="history_delete">x</button>
+					</li>
 
-			</div>
-			
+					<li class="history__item  history__item-minus">Отдал долг
+						<span class="history__money">-10000 ₽</span>
+						<button class="history_delete">x</button>
+					</li>
+				</ul>
+			</section>
+
+			<section class="operation">
+				<h3>Новая операция</h3>
+				<form id="form">
+					<label>
+						<input type="text" class="operation__fields operation__name" placeholder="Наименование операции">
+					</label>
+					<label>
+						<input type="number" class="operation__fields operation__amount" placeholder="Введите сумму">
+					</label>
+					<button type="submit" class="operation__add">Добавить операцию</button>
+
+				</form>
+			</section>
 		</div>
-
-	</div>
-
+	</main>
 	<script src="js/scripts.min.js"></script>
-
 </body>
+
 </html>
